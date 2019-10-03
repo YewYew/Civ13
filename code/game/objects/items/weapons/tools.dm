@@ -210,6 +210,24 @@
 	var/deployed = FALSE
 	nothrow = TRUE
 	flammable = TRUE
+	var/handicon = "siege_ladder"
+	var/depicon = "siege_ladder_dep"
+
+/obj/item/weapon/siegeladder/metal
+	name = "ladder"
+	desc = "A metal ladder, used to climb over stuff."
+	icon_state = "metal_ladder"
+	flags = CONDUCT
+	force = WEAPON_FORCE_WEAK + 4
+	throwforce = WEAPON_FORCE_WEAK + 1
+	w_class = 4.0
+	matter = list(DEFAULT_WALL_MATERIAL = 150)
+	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
+	deployed = FALSE
+	nothrow = TRUE
+	flammable = TRUE
+	handicon = "metal_ladder"
+	depicon = "metal_ladder_dep"
 
 /obj/item/weapon/siegeladder/attackby(obj/item/weapon/O as obj, mob/user as mob)
 	if (deployed)
@@ -222,7 +240,7 @@
 				"<span class='danger'>You have removed \the [src]!</span>")
 			anchored = FALSE
 			deployed = FALSE
-			icon_state = "siege_ladder"
+			icon_state = handicon
 			for (var/obj/structure/barricade/ST in src.loc)
 				ST.climbable = FALSE
 	else
@@ -242,7 +260,7 @@
 			ANCH.anchored = TRUE
 			src.climbable = TRUE
 			ANCH.deployed = TRUE
-			ANCH.icon_state = "siege_ladder_dep"
+			ANCH.icon_state = depicon
 			ANCH.dir = src.dir
 			return
 	else
